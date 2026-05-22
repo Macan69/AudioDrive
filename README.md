@@ -60,7 +60,7 @@ composer optimize-all      # всё сразу
 3. Обязательно задайте **`APP_KEY`** до билда (Variables доступны на этапе сборки).
 4. `composer.json` требует **PHP ^8.4** — совпадает с Symfony 8 в `composer.lock`.
 5. **Не добавляйте** `package.json` в корень — иначе Railpack запустит лишний `npm run build` (фронт на CDN + `public/css`).
-6. После первого деплоя: `RAILPACK_SKIP_MIGRATIONS=true`, чтобы не повторять seed.
+6. Перед каждым деплоем автоматически: `scripts/predeploy.sh` (миграции + идемпотентный сид) — см. `preDeployCommand` в `railway.toml`.
 
 Healthcheck: `/up`
 
@@ -69,10 +69,10 @@ Healthcheck: `/up`
 1. Проверьте **`APP_KEY`** (обязателен).
 2. Подключён **PostgreSQL** и есть переменная **`DATABASE_URL`** (или `DB_URL`).
 3. **`DB_CONNECTION=pgsql`** — если не задано, при `DATABASE_URL` выберется `pgsql` автоматически.
-4. В логах деплоя: `Running migrations...` без ошибок.
+4. В логах деплоя (фаза **Pre-deploy**): `Pre-deploy: migrations...` и `Pre-deploy: done.` без ошибок.
 5. Для диагностики временно: `APP_DEBUG=true`, затем снова `false`.
 
-Первый наполненный каталог: `php artisan db:seed --force` (Railway CLI или одноразовая команда).
+Локально то же, что на Railway: `sh scripts/predeploy.sh`
 
 ## Тестовые аккаунты
 

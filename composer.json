@@ -57,6 +57,10 @@
         "optimize-all": [
             "@php artisan app:optimize-project --css --static --images --ansi"
         ],
+        "predeploy": [
+            "@php artisan migrate --force --no-interaction",
+            "@php artisan db:seed --force --no-interaction"
+        ],
         "prod-install": [
             "composer install --no-dev --optimize-autoloader --no-interaction"
         ],

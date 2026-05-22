@@ -2,6 +2,7 @@
 builder = "RAILPACK"
 
 [deploy]
+preDeployCommand = "/bin/sh ./scripts/predeploy.sh"
 healthcheckPath = "/up"
 healthcheckTimeout = 300
 restartPolicyType = "ON_FAILURE"
