@@ -59,6 +59,10 @@ class Product extends Model
             $path = substr($path, 8);
         }
 
+        if (str_starts_with($path, 'images/') && is_file(public_path($path))) {
+            return asset($path);
+        }
+
         if (Storage::disk('public')->exists($path)) {
             return asset('storage/'.$path);
         }
@@ -73,6 +77,10 @@ class Product extends Model
         }
 
         $path = ltrim(str_replace('\\', '/', $this->image), '/');
+
+        if (str_starts_with($path, 'images/')) {
+            return is_file(public_path($path));
+        }
 
         return Storage::disk('public')->exists($path);
     }
