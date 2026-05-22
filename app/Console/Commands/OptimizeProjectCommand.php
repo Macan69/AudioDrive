@@ -11,9 +11,12 @@ use Illuminate\Support\Facades\Storage;
 
 class OptimizeProjectCommand extends Command
 {
-    protected $signature = 'app:optimize-project {--images : Сжать загруженные фото товаров}';
+    protected $signature = 'app:optimize-project
+        {--images : Сжать фото товаров}
+        {--static : Сжать статические изображения в public/images}
+        {--css : Минифицировать CSS (site + admin)}';
 
-    protected $description = 'Очистка кэша, оптимизация Laravel и сжатие изображений';
+    protected $description = 'Очистка кэша, оптимизация Laravel, CSS и изображений';
 
     public function handle(ImageUploadService $images): int
     {
@@ -29,6 +32,15 @@ class OptimizeProjectCommand extends Command
         Artisan::call('config:cache');
         Artisan::call('route:cache');
         Artisan::call('view:cache');
+
+        if ($this->option('css')) {
+            $this->minifyCss('site');
+            $this->minifyCss('admin');
+        }
+
+        if ($this->option('static')) {
+            $this->optimizeStaticImages($images);
+        }
 
         if ($this->option('images')) {
             if (! extension_loaded('gd')) {
@@ -53,13 +65,62 @@ class OptimizeProjectCommand extends Command
 
                 $bar->finish();
                 $this->newLine();
-                $this->info('Сэкономлено: '.round($savedBytes / 1024).' КБ');
+                $this->info('Товары: сэкономлено '.round($savedBytes / 1024).' КБ');
             }
         }
 
         $this->newLine();
-        $this->comment('Для продакшена: composer install --no-dev --optimize-autoloader');
+        $this->comment('Продакшен: composer prod-install && composer optimize-all');
 
         return self::SUCCESS;
+    }
+
+    private function minifyCss(string $name): void
+    {
+        $source = public_path("css/{$name}.css");
+        $target = public_path("css/{$name}.min.css");
+
+        if (! File::exists($source)) {
+            $this->warn("{$name}.css не найден.");
+
+            return;
+        }
+
+        $css = File::get($source);
+        $css = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $css) ?? $css;
+        $css = preg_replace('/\s+/', ' ', $css) ?? $css;
+        $css = preg_replace('/\s*([{}:;,])\s*/', '$1', $css) ?? $css;
+        $css = trim($css);
+
+        File::put($target, $css);
+        $before = filesize($source);
+        $after = strlen($css);
+        $this->info("CSS: {$name}.min.css (".round($before / 1024, 1).' КБ → '.round($after / 1024, 1).' КБ)');
+    }
+
+    private function optimizeStaticImages(ImageUploadService $images): void
+    {
+        if (! extension_loaded('gd')) {
+            $this->warn('GD не включён — статика пропущена.');
+
+            return;
+        }
+
+        $map = [
+            public_path('images/hero-audio.jpg') => ['max' => 1200, 'quality' => 80],
+            public_path('images/admin-avatar.jpg') => ['max' => 400, 'quality' => 82],
+            public_path('images/icons/vk.png') => ['max' => 128, 'quality' => 85],
+        ];
+
+        $saved = 0;
+        foreach ($map as $path => $opts) {
+            if (! is_file($path)) {
+                continue;
+            }
+            $saved += $images->optimizePublicFile($path, $opts['max'], $opts['quality']);
+            $this->line('  '.basename($path).' — OK');
+        }
+
+        $this->info('Статика: сэкономлено '.round($saved / 1024, 1).' КБ');
     }
 }

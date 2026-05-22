@@ -44,7 +44,7 @@ class User extends Authenticatable
     public function avatarUrl(): string
     {
         if ($this->isAdmin()) {
-            return asset('images/admin-avatar.png');
+            return asset('images/admin-avatar.jpg');
         }
 
         return 'https://ui-avatars.com/api/?name='.urlencode($this->name).'&background=e94560&color=fff&size=200';

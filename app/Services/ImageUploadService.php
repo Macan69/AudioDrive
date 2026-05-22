@@ -27,7 +27,7 @@ class ImageUploadService
             return $file->store('products', 'public');
         }
 
-        $source = $this->resizeIfNeeded($source);
+        $source = $this->resizeIfNeeded($source, self::MAX_SIDE);
         imagejpeg($source, $fullPath, self::JPEG_QUALITY);
         imagedestroy($source);
 
@@ -40,14 +40,47 @@ class ImageUploadService
             return false;
         }
 
-        $fullPath = Storage::disk('public')->path($relativePath);
-        $source = @imagecreatefromstring(file_get_contents($fullPath));
+        return $this->saveJpeg(Storage::disk('public')->path($relativePath), self::MAX_SIDE, self::JPEG_QUALITY);
+    }
+
+    public function optimizePublicFile(string $absolutePath, int $maxSide = 1200, int $quality = 82): int
+    {
+        if (! extension_loaded('gd') || ! is_file($absolutePath)) {
+            return 0;
+        }
+
+        $before = filesize($absolutePath) ?: 0;
+        $source = @imagecreatefromstring((string) file_get_contents($absolutePath));
+        if (! $source) {
+            return 0;
+        }
+
+        $source = $this->resizeIfNeeded($source, $maxSide);
+        $ext = strtolower(pathinfo($absolutePath, PATHINFO_EXTENSION));
+        $saved = $ext === 'png'
+            ? imagepng($source, $absolutePath, 8)
+            : imagejpeg($source, $absolutePath, $quality);
+        imagedestroy($source);
+
+        if (! $saved) {
+            return 0;
+        }
+
+        clearstatcache(true, $absolutePath);
+        $after = filesize($absolutePath) ?: 0;
+
+        return max(0, $before - $after);
+    }
+
+    private function saveJpeg(string $fullPath, int $maxSide, int $quality): bool
+    {
+        $source = @imagecreatefromstring((string) file_get_contents($fullPath));
         if (! $source) {
             return false;
         }
 
-        $source = $this->resizeIfNeeded($source);
-        $saved = imagejpeg($source, $fullPath, self::JPEG_QUALITY);
+        $source = $this->resizeIfNeeded($source, $maxSide);
+        $saved = imagejpeg($source, $fullPath, $quality);
         imagedestroy($source);
 
         return $saved;
@@ -82,16 +115,16 @@ class ImageUploadService
         return $canvas;
     }
 
-    private function resizeIfNeeded(\GdImage $image): \GdImage
+    private function resizeIfNeeded(\GdImage $image, int $maxSide = self::MAX_SIDE): \GdImage
     {
         $width = imagesx($image);
         $height = imagesy($image);
 
-        if ($width <= self::MAX_SIDE && $height <= self::MAX_SIDE) {
+        if ($width <= $maxSide && $height <= $maxSide) {
             return $image;
         }
 
-        $ratio = min(self::MAX_SIDE / $width, self::MAX_SIDE / $height);
+        $ratio = min($maxSide / $width, $maxSide / $height);
         $newWidth = max(1, (int) round($width * $ratio));
         $newHeight = max(1, (int) round($height * $ratio));
 

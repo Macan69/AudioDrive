@@ -42,15 +42,27 @@ composer dev-install
 Локальная оптимизация проекта:
 
 ```bash
-composer optimize-app          # кэш config/routes/views
-composer optimize-images     # сжатие фото товаров (нужно PHP GD)
+composer optimize-app      # кэш + минификация CSS + сжатие статики
+composer optimize-images   # сжатие фото товаров (нужно PHP GD)
+composer optimize-all      # всё сразу
 ```
 
-Новые загрузки фото в админке автоматически сжимаются до 1200px (JPEG 82%).
+Новые загрузки фото в админке автоматически сжимаются до 1200px (JPEG 82%). `optimize-app` минифицирует `site.css` и `admin.css`, сжимает статику в `public/images`.
 
 **Включите в php.ini:** `extension=gd`, `extension=fileinfo`
 
 Откройте http://127.0.0.1:8000
+
+## Деплой на Railway
+
+1. Подключите репозиторий к Railway, builder: **Railpack** (файл `railway.toml`).
+2. Добавьте плагин **PostgreSQL** и переменные из [`.env.railway.example`](.env.railway.example).
+3. Обязательно задайте **`APP_KEY`** до билда (Variables доступны на этапе сборки).
+4. `composer.json` требует **PHP ^8.4** — совпадает с Symfony 8 в `composer.lock`.
+5. **Не добавляйте** `package.json` в корень — иначе Railpack запустит лишний `npm run build` (фронт на CDN + `public/css`).
+6. После первого деплоя: `RAILPACK_SKIP_MIGRATIONS=true`, чтобы не повторять seed.
+
+Healthcheck: `/up`
 
 ## Тестовые аккаунты
 
