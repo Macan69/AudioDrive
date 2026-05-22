@@ -64,6 +64,16 @@ composer optimize-all      # всё сразу
 
 Healthcheck: `/up`
 
+### Ошибка 500 на Railway
+
+1. Проверьте **`APP_KEY`** (обязателен).
+2. Подключён **PostgreSQL** и есть переменная **`DATABASE_URL`** (или `DB_URL`).
+3. **`DB_CONNECTION=pgsql`** — если не задано, при `DATABASE_URL` выберется `pgsql` автоматически.
+4. В логах деплоя: `Running migrations...` без ошибок.
+5. Для диагностики временно: `APP_DEBUG=true`, затем снова `false`.
+
+Первый наполненный каталог: `php artisan db:seed --force` (Railway CLI или одноразовая команда).
+
 ## Тестовые аккаунты
 
 | Роль        | Email           | Пароль   |
