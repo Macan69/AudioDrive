@@ -49,7 +49,7 @@ composer optimize-all      # всё сразу
 
 Новые загрузки фото в админке автоматически сжимаются до 1200px (JPEG 82%). `optimize-app` минифицирует `site.css` и `admin.css`, сжимает статику в `public/images`.
 
-**Фото товаров:** локальные JPG с названием и брендом — `php artisan products:generate-images` (нужен GD). Файлы в `public/images/products/`, главная — `public/images/hero-audio.jpg`. Иконки — jsDelivr (`cdn_asset()`, `CDN_ENABLED`).
+**Фото товаров:** реальные с [loudsound.ru](https://www.loudsound.ru/) (`config/shop.php` → `product_photos`). Обновить URL: `php scripts/fetch-loudsound-images.php`, локальный кэш: `php scripts/download-loudsound-images.php`. Иконки — jsDelivr (`cdn_asset()`).
 
 **Включите в php.ini:** `extension=gd`, `extension=fileinfo`
 

@@ -48,8 +48,8 @@ class Product extends Model
         $path = $this->image;
         $cdn = app(ProductImageCdn::class);
 
-        if (str_starts_with($path, 'images/products/') && is_file(public_path($path))) {
-            return asset($path);
+        if (str_starts_with($path, 'images/products/') && is_file(public_path($path)) && @getimagesize(public_path($path))) {
+            return $cdn->productUrl($this->slug);
         }
 
         if (! $path || str_starts_with($path, ProductImageCdn::KEY_PREFIX) || str_starts_with($path, 'images/products/')) {

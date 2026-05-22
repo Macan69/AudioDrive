@@ -15,14 +15,14 @@ class ProductImageCdn
 
     public function productUrl(string $slug): string
     {
-        $relative = 'images/products/'.$slug.'.jpg';
-        if (is_file(public_path($relative))) {
-            return asset($relative);
-        }
-
         $mapped = config("shop.product_photos.{$slug}");
         if ($mapped) {
             return $mapped;
+        }
+
+        $relative = 'images/products/'.$slug.'.jpg';
+        if ($this->isValidLocalImage(public_path($relative))) {
+            return asset($relative);
         }
 
         if ($this->isEnabled()) {
@@ -93,5 +93,10 @@ class ProductImageCdn
         }
 
         return asset('images/product-placeholder.svg');
+    }
+
+    private function isValidLocalImage(string $absolutePath): bool
+    {
+        return is_file($absolutePath) && @getimagesize($absolutePath) !== false;
     }
 }
