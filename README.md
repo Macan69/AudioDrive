@@ -49,7 +49,7 @@ composer optimize-all      # всё сразу
 
 Новые загрузки фото в админке автоматически сжимаются до 1200px (JPEG 82%). `optimize-app` минифицирует `site.css` и `admin.css`, сжимает статику в `public/images`.
 
-**CDN:** фото товаров — Unsplash (`config/shop.php` → `product_photos`), иконки и аватар — jsDelivr с GitHub (`cdn_asset()`). Отключить: `CDN_ENABLED=false`.
+**CDN:** фото товаров — loudsound.ru (`config/shop.php` → `product_photos`; обновить: `php scripts/fetch-loudsound-images.php`), иконки и аватар — jsDelivr с GitHub (`cdn_asset()`). Отключить: `CDN_ENABLED=false`.
 
 **Включите в php.ini:** `extension=gd`, `extension=fileinfo`
 

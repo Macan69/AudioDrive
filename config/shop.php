@@ -27,31 +27,32 @@ return [
     ],
 
     /*
-    | Фото товаров (Unsplash CDN) — стабильные URL с параметрами размера.
+    | Фото товаров — с loudsound.ru (og:image карточек каталога).
+    | Где точной модели нет, подобрана близкая позиция того же типа.
     */
     'product_photos' => [
-        'pioneer-ts-wx300a' => 'https://images.unsplash.com/photo-1598488035139-bdbb5a590840?w=800&h=600&fit=crop&q=80',
-        'alpine-sws-12d4' => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop&q=80',
-        'kenwood-kac-m3004' => 'https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=800&h=600&fit=crop&q=80',
-        'jbl-gx-a602' => 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&h=600&fit=crop&q=80',
-        'hertz-dsk-1653' => 'https://images.unsplash.com/photo-1545454675-3531b543be6d?w=800&h=600&fit=crop&q=80',
-        'focal-165-as' => 'https://images.unsplash.com/photo-1478737273-99004f03f5b8?w=800&h=600&fit=crop&q=80',
-        'pioneer-dmh-g225bt' => 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=600&fit=crop&q=80',
+        'pioneer-ts-wx300a' => 'https://www.loudsound.ru/upload/iblock/9d4/13vqp28vla276qekbn3f94awd0doc43c/aktivnyy_sabvufer_avtomobilnyy_korpusnoy_aktivnyy_8_pioneer_ts_wx130ea.jpg',
+        'alpine-sws-12d4' => 'https://www.loudsound.ru/upload/iblock/6cd/passivnyy_sabvufer_avtomobilnyy_korpusnoy_passivnyy_12_alpine_swt_12s4.jpg',
+        'kenwood-kac-m3004' => 'https://www.loudsound.ru/upload/iblock/249/2_kanalnyy-usilitel-kenwood-kac_ps802ex-ot-magazina-avtozvuka-loudsound.jpg',
+        'jbl-gx-a602' => 'https://www.loudsound.ru/upload/iblock/e3f/rl7ac8wneee9ycwy32qxa0xse6q5p9b7/4_kanalnyy-usilitel-jbl-concert-a704-ot-magazina-avtozvuka-loudsound.jpg',
+        'hertz-dsk-1653' => 'https://www.loudsound.ru/upload/iblock/dec/nb0dr72s3z8qu08np7i1ukz2eh4gc4ig/2_kh_komponentnaya_avtoakustika_hertz_dsk_165_3_loudsound.jpg',
+        'focal-165-as' => 'https://www.loudsound.ru/upload/iblock/ebd/2_kh_komponentnaya_avtoakustika_focal_access_165_as_loudsound.jpg',
+        'pioneer-dmh-g225bt' => 'https://www.loudsound.ru/upload/iblock/a09/jfrxa2migzxn4xbczfbg641zdpgstugq/avtomagnitola_2din_pioneer_dmh_g225bt_.jpg',
         'alpine-ilx-w650' => 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&h=600&fit=crop&q=80',
-        'kabel-akusticeskii-2x25mm' => 'https://images.unsplash.com/photo-1486262715619-67b85ebc4ece?w=800&h=600&fit=crop&q=80',
-        'kondensator-2-farad' => 'https://images.unsplash.com/photo-1621361365429-988f21e74d1d?w=800&h=600&fit=crop&q=80',
-        'morel-maximo-ultra-602' => 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800&h=600&fit=crop&q=80',
-        'sound-digital-sd-30001' => 'https://images.unsplash.com/photo-1617814076367-bae69a26637b?w=800&h=600&fit=crop&q=80',
+        'kabel-akusticeskii-2x25mm' => 'https://www.loudsound.ru/upload/iblock/030/komplekt_provodov_kicx_akc10atc2_10ga_cca_2_kanala_loudsound.jpg',
+        'kondensator-2-farad' => 'https://www.loudsound.ru/upload/iblock/683/0zbw3vob35pzd1v58gd17f4ju37460j1/avtomobilnyy-kondensator-recoil-bb_4-ot-magazina-avtozvuka-loudsound.jpg',
+        'morel-maximo-ultra-602' => 'https://www.loudsound.ru/upload/iblock/62f/2_kh_komponentnaya_avtoakustika_morel_maximo_ultra_602_mkii_loudsound.jpg',
+        'sound-digital-sd-30001' => 'https://www.loudsound.ru/upload/iblock/8a7/1_kanalnyy-usilitel-_monoblok_-dynamic-state-ca_3000.1d-custom-series-ot-magazina-avtozvuka-loudsound.jpg',
     ],
 
     'fallback_photos' => [
-        'subwoofers' => 'https://images.unsplash.com/photo-1598488035139-bdbb5a590840?w=800&h=600&fit=crop&q=80',
-        'amplifiers' => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&h=600&fit=crop&q=80',
-        'speakers' => 'https://images.unsplash.com/photo-1545454675-3531b543be6d?w=800&h=600&fit=crop&q=80',
-        'head-units' => 'https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&h=600&fit=crop&q=80',
-        'accessories' => 'https://images.unsplash.com/photo-1486262715619-67b85ebc4ece?w=800&h=600&fit=crop&q=80',
+        'subwoofers' => 'https://www.loudsound.ru/upload/iblock/9d4/13vqp28vla276qekbn3f94awd0doc43c/aktivnyy_sabvufer_avtomobilnyy_korpusnoy_aktivnyy_8_pioneer_ts_wx130ea.jpg',
+        'amplifiers' => 'https://www.loudsound.ru/upload/iblock/e3f/rl7ac8wneee9ycwy32qxa0xse6q5p9b7/4_kanalnyy-usilitel-jbl-concert-a704-ot-magazina-avtozvuka-loudsound.jpg',
+        'speakers' => 'https://www.loudsound.ru/upload/iblock/dec/nb0dr72s3z8qu08np7i1ukz2eh4gc4ig/2_kh_komponentnaya_avtoakustika_hertz_dsk_165_3_loudsound.jpg',
+        'head-units' => 'https://www.loudsound.ru/upload/iblock/a09/jfrxa2migzxn4xbczfbg641zdpgstugq/avtomagnitola_2din_pioneer_dmh_g225bt_.jpg',
+        'accessories' => 'https://www.loudsound.ru/upload/iblock/030/komplekt_provodov_kicx_akc10atc2_10ga_cca_2_kanala_loudsound.jpg',
     ],
 
-    'hero_photo' => 'https://images.unsplash.com/photo-1598488035139-bdbb5a590840?w=1120&h=840&fit=crop&q=85',
+    'hero_photo' => 'https://www.loudsound.ru/images/13599f490_rec.png',
 
 ];
