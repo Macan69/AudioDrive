@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Services\ProductImageCdn;
 use Illuminate\Support\Facades\Storage;
 
 class Product extends Model
@@ -45,9 +46,10 @@ class Product extends Model
     public function getImageUrlAttribute(): string
     {
         $path = $this->image;
+        $cdn = app(ProductImageCdn::class);
 
-        if (! $path) {
-            return asset('images/product-placeholder.svg');
+        if (! $path || str_starts_with($path, ProductImageCdn::KEY_PREFIX) || str_starts_with($path, 'images/products/')) {
+            return $cdn->resolve($this);
         }
 
         if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
@@ -67,16 +69,24 @@ class Product extends Model
             return asset('storage/'.$path);
         }
 
-        return asset('images/product-placeholder.svg');
+        return $cdn->resolve($this);
     }
 
     public function hasImage(): bool
     {
         if (! $this->image) {
-            return false;
+            return true;
         }
 
         $path = ltrim(str_replace('\\', '/', $this->image), '/');
+
+        if (str_starts_with($path, ProductImageCdn::KEY_PREFIX) || str_starts_with($path, 'images/products/')) {
+            return true;
+        }
+
+        if (str_starts_with($path, 'http://') || str_starts_with($path, 'https://')) {
+            return true;
+        }
 
         if (str_starts_with($path, 'images/')) {
             return is_file(public_path($path));

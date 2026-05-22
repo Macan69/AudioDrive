@@ -10,5 +10,5 @@
     };
 @endphp
 <div class="{{ $class }}">
-    <img src="{{ $product->image_url }}" alt="{{ $alt }}" loading="lazy" decoding="async">
+    <img src="{{ $product->image_url }}" alt="{{ $alt }}" loading="lazy" decoding="async" referrerpolicy="no-referrer">
 </div>

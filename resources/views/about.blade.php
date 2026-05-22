@@ -152,10 +152,10 @@
                         <span class="contacts-social__title">Мы в соцсетях</span>
                         <div class="contacts-social__links">
                             <a href="https://vk.com/" target="_blank" rel="noopener noreferrer" class="contacts-social__link" title="ВКонтакте">
-                                <img src="{{ asset('images/icons/vk.png') }}" width="36" height="36" alt="ВКонтакте">
+                                <img src="{{ cdn_asset('images/icons/vk.png') }}" width="36" height="36" alt="ВКонтакте">
                             </a>
                             <a href="https://max.ru/" target="_blank" rel="noopener noreferrer" class="contacts-social__link" title="MAX">
-                                <img src="{{ asset('images/icons/max.svg') }}" width="36" height="36" alt="MAX">
+                                <img src="{{ cdn_asset('images/icons/max.svg') }}" width="36" height="36" alt="MAX">
                             </a>
                             <a href="mailto:info@audiodrive.ru" class="contacts-social__link contacts-social__link--mail" title="Email">
                                 <i class="bi bi-envelope"></i>

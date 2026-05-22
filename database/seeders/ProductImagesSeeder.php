@@ -3,20 +3,20 @@
 namespace Database\Seeders;
 
 use App\Models\Product;
-use App\Services\ProductDemoImageService;
+use App\Services\ProductImageCdn;
 use Illuminate\Database\Seeder;
 
 class ProductImagesSeeder extends Seeder
 {
     public function run(): void
     {
-        $images = app(ProductDemoImageService::class);
+        $cdn = app(ProductImageCdn::class);
 
-        Product::with('category')->each(function (Product $product) use ($images) {
-            $path = $images->ensureForProduct($product);
+        Product::query()->each(function (Product $product) use ($cdn) {
+            $key = $cdn->keyForSlug($product->slug);
 
-            if ($path && $product->image !== $path) {
-                $product->update(['image' => $path]);
+            if ($product->image !== $key) {
+                $product->update(['image' => $key]);
             }
         });
     }

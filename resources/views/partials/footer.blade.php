@@ -6,10 +6,10 @@
                 <p class="small d-none d-md-block mb-0">Интернет-магазин автомобильной акустики премиум-класса. Сабвуферы, усилители, динамики и головные устройства от ведущих брендов.</p>
                 <div class="d-flex align-items-center gap-2 mt-2 mt-md-3 footer-socials">
                     <a href="https://vk.com/" target="_blank" rel="noopener noreferrer" class="footer-social-brand" title="ВКонтакте" aria-label="ВКонтакте">
-                        <img src="{{ asset('images/icons/vk.png') }}" width="40" height="40" alt="ВКонтакте">
+                        <img src="{{ cdn_asset('images/icons/vk.png') }}" width="40" height="40" alt="ВКонтакте">
                     </a>
                     <a href="https://max.ru/" target="_blank" rel="noopener noreferrer" class="footer-social-brand" title="Мессенджер MAX" aria-label="Мессенджер MAX">
-                        <img src="{{ asset('images/icons/max.svg') }}" width="40" height="40" alt="MAX">
+                        <img src="{{ cdn_asset('images/icons/max.svg') }}" width="40" height="40" alt="MAX">
                     </a>
                     <a href="mailto:info@audiodrive.ru" class="footer-social" title="Email" aria-label="Email">
                         <i class="bi bi-envelope"></i>
