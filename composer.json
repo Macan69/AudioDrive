@@ -48,6 +48,18 @@
             "@php artisan config:clear --ansi @no_additional_args",
             "@php artisan test"
         ],
+        "optimize-app": [
+            "@php artisan app:optimize-project --ansi"
+        ],
+        "optimize-images": [
+            "@php artisan app:optimize-project --images --ansi"
+        ],
+        "prod-install": [
+            "composer install --no-dev --optimize-autoloader --no-interaction"
+        ],
+        "dev-install": [
+            "composer install --no-interaction"
+        ],
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover --ansi"
