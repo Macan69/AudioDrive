@@ -56,7 +56,7 @@
                 <div class="col-lg-5">
                     <div class="home-hero__image-wrap">
                         <img
-                            src="{{ config('shop.hero_photo') }}"
+                            src="{{ str_starts_with(config('shop.hero_photo'), 'http') ? config('shop.hero_photo') : asset(ltrim(config('shop.hero_photo'), '/')) }}"
                             alt="Автомобильная акустика — сабвуферы и усилители"
                             class="home-hero__image"
                             width="560"

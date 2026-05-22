@@ -15,6 +15,11 @@ class ProductImageCdn
 
     public function productUrl(string $slug): string
     {
+        $relative = 'images/products/'.$slug.'.jpg';
+        if (is_file(public_path($relative))) {
+            return asset($relative);
+        }
+
         $mapped = config("shop.product_photos.{$slug}");
         if ($mapped) {
             return $mapped;
@@ -24,7 +29,7 @@ class ProductImageCdn
             return config('shop.cdn.products_base').'/'.rawurlencode($slug).'.jpg';
         }
 
-        return asset('images/products/'.$slug.'.jpg');
+        return asset($relative);
     }
 
     public function staticUrl(string $path): string
@@ -80,8 +85,13 @@ class ProductImageCdn
         $product->loadMissing('category');
         $categorySlug = $product->category?->slug ?? 'accessories';
 
-        return config("shop.fallback_photos.{$categorySlug}")
-            ?? config('shop.fallback_photos.accessories')
-            ?? asset('images/product-placeholder.svg');
+        $fallback = config("shop.fallback_photos.{$categorySlug}")
+            ?? config('shop.fallback_photos.accessories');
+
+        if ($fallback) {
+            return str_starts_with($fallback, 'http') ? $fallback : asset(ltrim($fallback, '/'));
+        }
+
+        return asset('images/product-placeholder.svg');
     }
 }
