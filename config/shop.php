@@ -52,6 +52,6 @@ return [
         'accessories' => 'https://www.loudsound.ru/upload/iblock/030/komplekt_provodov_kicx_akc10atc2_10ga_cca_2_kanala_loudsound.jpg',
     ],
 
-    'hero_photo' => 'https://images.unsplash.com/photo-1597019558701-09fa08e70324?w=1120&h=840&fit=crop&q=85',
+    'hero_photo' => '/images/hero-audio.jpg',
 
 ];
