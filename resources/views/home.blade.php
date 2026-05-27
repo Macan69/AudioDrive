@@ -63,6 +63,7 @@
                             height="420"
                             loading="eager"
                             fetchpriority="high"
+                            @if(str_starts_with(config('shop.hero_photo'), 'http')) referrerpolicy="no-referrer" @endif
                         >
                     </div>
                 </div>
